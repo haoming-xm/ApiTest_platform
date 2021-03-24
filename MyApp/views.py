@@ -5,3 +5,4 @@ from django.http import HttpResponse,HttpResponseRedirect
 def welcome(request):
     print('进来了')
     return render(request,'welcome.html')
+#test
