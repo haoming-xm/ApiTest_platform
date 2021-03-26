@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>测试平台</title>
    <!--awesome font include-->
         <link type="text/css" rel="stylesheet" href="../static/201908059658/assets/css/font-awesome.min.css" />
         <!--include plugin css-->
@@ -58,5 +58,10 @@
                 rvnMenu.setTheme('dark-ruby');
             });
         </script>
+    <div id="page1"></div>
+<script>
+$('#page1').load('/child/'+'{{ whichHTML }}/{{ oid }}/')
+</script>
+
 </body>
 </html>
