@@ -13,3 +13,7 @@ def home(request):
 #返回子页面
 def child(request,eid,oid):
     return render(request, eid)
+
+#进入登陆页面
+def login(request):
+    return render(request,'login.html')

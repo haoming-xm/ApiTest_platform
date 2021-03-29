@@ -40,6 +40,30 @@
             </ul>
 
         </nav>
+    <button id="menu_btn" onclick="display_menu()" style="margin-left:220px">隐藏</button>
+
+    <script>
+        function display_menu(){
+            menu = document.getElementById('navbar');
+            btn = document.getElementById('menu_btn');
+
+        if(btn.innerText=='隐藏'){
+            menu.style.display = 'none';
+            btn.style.marginLeft = '0px';
+            btn.innerText = '显示';
+        }else{
+            menu.style.display = 'block';
+            btn.style.marginLeft = '217px';
+            btn.innerText = '隐藏';
+        }
+
+
+        }
+    </script>
+
+    <a href="/home/">
+        <button style="float: right">主页</button>
+    </a>
 
    <script src="../static/201908059658/js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <!--include plugin js-->
