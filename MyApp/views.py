@@ -17,3 +17,19 @@ def child(request,eid,oid):
 #进入登陆页面
 def login(request):
     return render(request,'login.html')
+
+#开始登陆
+def login_action(request):
+    u_name = request.GET['username']
+    p_word = request.GET['password']
+
+    #开始联通django用户库,查看用户名密码是否正确
+    from django.contrib import auth
+    user = auth.authenticate(username=u_name,password=p_word)
+
+    if user is not None:
+        #进行正确的动作
+        return HttpResponseRedirect('/home/')
+    else:
+        #返回前端告诉用户名/密码不对
+        return HttpResponse('')
