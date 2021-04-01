@@ -23,6 +23,7 @@ def login_action(request):
     u_name = request.GET['username']
     p_word = request.GET['password']
 
+
     #开始联通django用户库,查看用户名密码是否正确
     from django.contrib import auth
     user = auth.authenticate(username=u_name,password=p_word)
