@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def welcome(request):
-    print('进来了')
     return render(request,'welcome.html')
 
+@login_required
 def home(request):
-
     return render(request,'welcome.html',{"whichHTML":"Home.html","oid":""})
 
 #返回子页面
@@ -30,7 +32,25 @@ def login_action(request):
 
     if user is not None:
         #进行正确的动作
-        return HttpResponseRedirect('/home/')
+        #return HttpResponseRedirect('/home/')
+        auth.login(request,user)
+        request.session['user'] = u_name
+        return HttpResponse('成功')
     else:
         #返回前端告诉用户名/密码不对
-        return HttpResponse('')
+        return HttpResponse('失败')
+
+#注册
+def register_action(request):
+    u_name = request.GET['username']
+    p_word = request.GET['password']
+
+    # 开始联通django用户表
+    from django.contrib.auth.models import User
+    try:
+        user = User.objects.create_user(username=u_name,password=p_word)
+        user.save()
+        return HttpResponse('注册成功！')
+    except:
+        return HttpResponse('注册失败~用户名好像已经存在~')
+
