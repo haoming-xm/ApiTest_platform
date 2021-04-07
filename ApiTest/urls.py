@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^login_action/$',login_action), #登陆
     url(r'^register_action/$',register_action), #注册
     url(r'^accounts/login/$',login), #非登陆状态自动跳回登陆页面
+    url(r'^logout/$',logout), #退出
+    url(r'^tijiao/$',tijiao), #匿名吐槽
 ]

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def welcome(request):
+    print('进来了')
     return render(request,'welcome.html')
 
 @login_required
@@ -54,3 +55,12 @@ def register_action(request):
     except:
         return HttpResponse('注册失败~用户名好像已经存在~')
 
+#退出登陆
+def logout(request):
+    from django.contrib import auth
+    auth.logout(request)
+    return HttpResponseRedirect('/login/')
+
+#吐槽函数
+def tijiao(request):
+    tucao_text=request.GET['tucao_text']
