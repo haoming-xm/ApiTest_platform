@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 
 from django.contrib.auth.decorators import login_required
+from MyApp.models import *
 
 @login_required
 def welcome(request):
@@ -15,7 +16,9 @@ def home(request):
 
 #返回子页面
 def child(request,eid,oid):
-    return render(request, eid)
+    res = child_json(eid)
+
+    return render(request, eid,res)
 
 #进入登陆页面
 def login(request):
@@ -62,5 +65,29 @@ def logout(request):
     return HttpResponseRedirect('/login/')
 
 #吐槽函数
-def tijiao(request):
-    tucao_text=request.GET['tucao_text']
+def pei(request):
+    tucao_text = request.GET['tucao_text']
+
+    DB_tucao.objects.create(user=request.user.username,text=tucao_text)
+
+    return HttpResponse('')
+
+#帮助文档
+def api_help(request):
+    return render(request,'welcome.html',{'whichHTML':"help.html","old":""})
+
+#控制不同的页面返回不同的数据：数据分发器
+def child_json(eid):
+    res = {}
+    if eid == 'Home.html':
+        date = DB_home_href.objects.all()
+        res = {"hrefs":date}
+    if eid == 'project_list.html':
+        date = DB_project.objects.all()
+        res = {"projects":date}
+    return res
+
+
+#进入项目列表
+def project_list(request):
+    return render(request,'welcome.html',{'whichHTML':'project_list.html',"oid":""})
