@@ -16,7 +16,7 @@ def home(request):
 
 #返回子页面
 def child(request,eid,oid):
-    res = child_json(eid)
+    res = child_json(eid,oid)
 
     return render(request, eid,res)
 
@@ -77,7 +77,7 @@ def api_help(request):
     return render(request,'welcome.html',{'whichHTML':"help.html","old":""})
 
 #控制不同的页面返回不同的数据：数据分发器
-def child_json(eid):
+def child_json(eid,oid=''):
     res = {}
     if eid == 'Home.html':
         date = DB_home_href.objects.all()
@@ -85,9 +85,52 @@ def child_json(eid):
     if eid == 'project_list.html':
         date = DB_project.objects.all()
         res = {"projects":date}
+
+    if eid == 'P_apis.html':
+        project = DB_project.objects.filter(id=oid)[0]
+        res = {"project":project}
+
+    if eid == 'P_cases.html':
+        project = DB_project.objects.filter(id=oid)[0]
+        res = {"project":project}
+
+    if eid == 'P_project_set.html':
+        project = DB_project.objects.filter(id=oid)[0]
+        res = {"project":project}
+
     return res
 
 
 #进入项目列表
 def project_list(request):
     return render(request,'welcome.html',{'whichHTML':'project_list.html',"oid":""})
+
+#删除项目
+def delete_project(request):
+    id = request.GET['id']
+
+    DB_project.objects.filter(id=id).delete()
+
+    return HttpResponse('')
+
+#新增项目
+def add_project(request):
+    project_name = request.GET['project_name']
+    DB_project.objects.create(name=project_name,remark='',user=request.user.username,other_user='')
+    return HttpResponse('')
+
+#进入接口库
+def open_apis(request,id):
+    project_id = id
+    return render(request,'welcome.html',{"whichHTML":"P_apis.html","oid":project_id})
+
+#进入用例设置库
+def open_cases(request,id):
+    project_id = id
+    return render(request,'welcome.html',{"whichHTML":"P_cases.html","oid":project_id})
+
+#进入项目设置
+def open_project_set(request,id):
+    project_id = id
+    return render(request,'welcome.html',{"whichHTML":"P_project_set.html","oid":project_id})
+    
