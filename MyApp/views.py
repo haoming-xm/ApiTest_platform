@@ -169,3 +169,4 @@ def get_bz(request):
     api_id = request.GET['api_id']
     bz_value = DB_apis.objects.filter(id=api_id)[0].des
     return HttpResponse(bz_value)
+#test
