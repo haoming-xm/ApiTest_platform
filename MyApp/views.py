@@ -170,3 +170,4 @@ def get_bz(request):
     bz_value = DB_apis.objects.filter(id=api_id)[0].des
     return HttpResponse(bz_value)
 #test
+aaaa = 55
