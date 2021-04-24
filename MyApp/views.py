@@ -171,3 +171,4 @@ def get_bz(request):
     return HttpResponse(bz_value)
 #test
 aaaa = 55
+bbbb = 33
