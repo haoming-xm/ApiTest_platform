@@ -143,3 +143,29 @@ def save_project_set(request,id):
     other_user = request.GET['other_user']
     DB_project.objects.filter(id=project_id).update(name=name,remark=remark,other_user=other_user)
     return HttpResponse('')
+
+# 新增接口
+def project_api_add(request,Pid):
+    project_id = Pid
+    DB_apis.objects.create(project_id=project_id)
+    return HttpResponseRedirect('/apis/%s/'%project_id)
+
+# 删除接口
+def project_api_del(request,id):
+
+    project_id = DB_apis.objects.filter(id=id)[0].project_id
+    DB_apis.objects.filter(id=id).delete()
+    return HttpResponseRedirect('/apis/%s/'%project_id)
+
+#保存备注
+def save_bz(request):
+    api_id = request.GET['api_id']
+    bz_value = request.GET['bz_value']
+    DB_apis.objects.filter(id=api_id).update(des=bz_value) #这里的des就是描述也就是现在的备注
+    return HttpResponse('')
+
+#获取备注
+def get_bz(request):
+    api_id = request.GET['api_id']
+    bz_value = DB_apis.objects.filter(id=api_id)[0].des
+    return HttpResponse(bz_value)

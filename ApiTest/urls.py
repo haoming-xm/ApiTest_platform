@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls import url
 
 from MyApp.views import *
 urlpatterns = [
@@ -37,4 +37,9 @@ urlpatterns = [
     url(r'^cases/(?P<id>.*)/$',open_cases), #进入用例设置
     url(r'^project_set/(?P<id>.*)/$',open_project_set), #进入项目设置
     url(r'^save_project_set/(?P<id>.*)/$',save_project_set), #保存项目设置
+    url(r'^project_api_add/(?P<Pid>.*)/$',project_api_add), #新增接口
+    url(r'^project_api_del/(?P<id>.*)/$',project_api_del), #新增接口
+    url(r'^save_bz/$',save_bz), #保存接口
+    url(r'^get_bz/$',get_bz), #获取接口
+
 ]
